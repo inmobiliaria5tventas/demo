@@ -1,43 +1,45 @@
+[tierras-nuble-dark-mode.html](https://github.com/user-attachments/files/25617625/tierras-nuble-dark-mode.html)
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tierras del Ñuble | Parcelas de Agrado con Geoportal Interactivo</title>
-    <meta name="description" content="Parcelas de agrado en Ñuble con geoportal interactivo. Visualiza servicios, plusvalía y potencial productivo antes de comprar. Proyectos rurales transparentes y verificados.">
-    
+    <title>Tierras del Ñuble | Parcelas de Agrado - Dark Edition</title>
+    <meta name="description"
+        content="Parcelas de agrado en Ñuble con geoportal interactivo. Visualización premium en modo oscuro.">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
+
     <style>
         :root {
-            --color-primary: #1a4d2e;
-            --color-primary-light: #2d6a4f;
+            /* Palette Dark Premium */
+            --color-primary: #2d6a4f;
+            --color-primary-light: #52b788;
             --color-secondary: #bc6c25;
             --color-secondary-light: #dda15e;
-            --color-accent: #e9edc9;
-            --color-dark: #1b1b1b;
-            --color-gray: #6b7280;
-            --color-light: #f8f9fa;
+            --color-bg: #0a0f0b;
+            --color-bg-card: #141e16;
+            --color-bg-alt: #0e160f;
+            --color-text: #e2e8f0;
+            --color-text-muted: #94a3b8;
             --color-white: #ffffff;
             --font-serif: 'Playfair Display', serif;
             --font-sans: 'Inter', sans-serif;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            --radius-sm: 8px;
+            --shadow-dark: 0 10px 30px rgba(0, 0, 0, 0.5);
             --radius-md: 12px;
-            --radius-lg: 16px;
-            --radius-xl: 24px;
+            --radius-lg: 20px;
         }
 
         * {
@@ -52,26 +54,26 @@
 
         body {
             font-family: var(--font-sans);
-            color: var(--color-dark);
+            color: var(--color-text);
             line-height: 1.6;
-            background-color: var(--color-white);
+            background-color: var(--color-bg);
+            overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: var(--font-serif);
             font-weight: 600;
             line-height: 1.2;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
+            color: var(--color-white);
         }
 
         a {
             text-decoration: none;
             color: inherit;
+            transition: 0.3s;
         }
 
         button {
@@ -93,21 +95,28 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(10, 15, 11, 0.85);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
         }
 
         .navbar.scrolled {
-            box-shadow: var(--shadow-md);
+            height: 70px;
+            background: rgba(10, 15, 11, 0.98);
+            box-shadow: var(--shadow-dark);
         }
 
         .navbar-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 80px;
+            height: 90px;
+            transition: height 0.3s;
+        }
+
+        .navbar.scrolled .navbar-content {
+            height: 70px;
         }
 
         .logo {
@@ -117,83 +126,62 @@
         }
 
         .logo-icon {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             background: var(--color-primary);
-            border-radius: var(--radius-md);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
+            font-size: 1.25rem;
         }
 
         .logo-brand {
             font-family: var(--font-serif);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            color: var(--color-primary);
+            color: var(--color-white);
             line-height: 1;
         }
 
         .logo-tagline {
-            font-size: 0.75rem;
-            color: var(--color-gray);
-            letter-spacing: 0.05em;
+            font-size: 0.7rem;
+            color: var(--color-primary-light);
+            letter-spacing: 0.1em;
             text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
-            align-items: center;
             gap: 2.5rem;
             list-style: none;
         }
 
         .nav-links a {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 500;
-            color: var(--color-dark);
-            position: relative;
-            padding: 0.5rem 0;
+            color: var(--color-text-muted);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--color-secondary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-links a:hover {
+            color: var(--color-primary-light);
         }
 
         .nav-cta {
             display: flex;
-            align-items: center;
             gap: 1rem;
         }
 
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.875rem 1.75rem;
+            padding: 0.75rem 1.5rem;
             border-radius: var(--radius-md);
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .btn-primary {
@@ -204,7 +192,7 @@
         .btn-primary:hover {
             background: var(--color-primary-light);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 5px 15px rgba(45, 106, 79, 0.4);
         }
 
         .btn-secondary {
@@ -212,42 +200,25 @@
             color: white;
         }
 
-        .btn-secondary:hover {
-            background: #a05a1f;
-            transform: translateY(-2px);
-        }
-
         .btn-outline {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
             background: transparent;
-            color: var(--color-primary);
-            border: 2px solid var(--color-primary);
         }
 
         .btn-outline:hover {
-            background: var(--color-primary);
-            color: white;
+            background: white;
+            color: var(--color-bg);
         }
 
-        .btn-large {
-            padding: 1.125rem 2.5rem;
-            font-size: 1.1rem;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            font-size: 1.5rem;
-            color: var(--color-dark);
-        }
-
-        /* Hero Section */
+        /* Hero */
         .hero {
-            min-height: 100vh;
+            height: 100vh;
             position: relative;
             display: flex;
             align-items: center;
+            padding-top: 90px;
             overflow: hidden;
-            margin-top: 80px;
         }
 
         .hero-bg {
@@ -260,1278 +231,694 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: brightness(0.4) contrast(1.1);
         }
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(26, 77, 46, 0.85) 0%, rgba(27, 27, 27, 0.7) 100%);
+            background: linear-gradient(135deg, rgba(10, 15, 11, 0.9) 0%, rgba(10, 15, 11, 0.4) 100%);
             z-index: -1;
         }
 
         .hero-content {
-            position: relative;
             z-index: 1;
-            color: white;
-            padding: 4rem 0;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
+            background: rgba(45, 106, 79, 0.2);
+            border: 1px solid rgba(45, 106, 79, 0.3);
             padding: 0.5rem 1rem;
             border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            color: var(--color-primary-light);
+            margin-bottom: 2rem;
         }
 
         .hero-title {
             font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 700;
             margin-bottom: 1.5rem;
             max-width: 800px;
         }
 
         .hero-title span {
-            color: var(--color-secondary-light);
+            color: var(--color-primary-light);
         }
 
         .hero-description {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
             max-width: 600px;
-            margin-bottom: 2.5rem;
-            opacity: 0.95;
-            font-weight: 300;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
+            margin-bottom: 3rem;
         }
 
         .hero-stats {
             display: flex;
-            gap: 3rem;
-            margin-top: 4rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            gap: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat-number {
-            font-family: var(--font-serif);
+        .stat-num {
             font-size: 2.5rem;
-            font-weight: 700;
             color: var(--color-secondary-light);
+            font-weight: 700;
+            display: block;
         }
 
-        .hero-stat-label {
-            font-size: 0.875rem;
-            opacity: 0.9;
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
         }
 
-        /* Geoportal Preview */
-        .geoportal-section {
-            padding: 6rem 0;
-            background: var(--color-light);
+        /* Sections */
+        .section {
+            padding: 8rem 0;
+        }
+
+        .section-alt {
+            background-color: var(--color-bg-alt);
         }
 
         .section-header {
             text-align: center;
             max-width: 700px;
-            margin: 0 auto 4rem;
+            margin: 0 auto 5rem;
         }
 
-        .section-label {
-            display: inline-block;
-            color: var(--color-secondary);
-            font-weight: 600;
-            font-size: 0.875rem;
+        .label {
+            color: var(--color-primary-light);
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
+            font-size: 0.8rem;
+            display: block;
             margin-bottom: 1rem;
         }
 
         .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            color: var(--color-primary);
-            margin-bottom: 1rem;
-        }
-
-        .section-description {
-            color: var(--color-gray);
-            font-size: 1.125rem;
-        }
-
-        .geoportal-container {
-            background: white;
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl);
-            overflow: hidden;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .geoportal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1.5rem 2rem;
-            background: var(--color-primary);
-            color: white;
-        }
-
-        .geoportal-title {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 600;
-        }
-
-        .geoportal-controls {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .geoportal-control {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255,255,255,0.15);
-            border-radius: var(--radius-sm);
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .geoportal-control:hover {
-            background: rgba(255,255,255,0.25);
-        }
-
-        #map {
-            height: 500px;
-            width: 100%;
-        }
-
-        .geoportal-features {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .geoportal-feature {
-            padding: 1.5rem;
-            text-align: center;
-            border-right: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .geoportal-feature:last-child {
-            border-right: none;
-        }
-
-        .geoportal-feature-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--color-accent);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.75rem;
-            color: var(--color-primary);
-            font-size: 1.25rem;
-        }
-
-        .geoportal-feature-title {
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .geoportal-feature-desc {
-            font-size: 0.875rem;
-            color: var(--color-gray);
-        }
-
-        /* Projects Section */
-        .projects-section {
-            padding: 6rem 0;
-        }
-
-        .projects-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            margin-bottom: 3rem;
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .project-image {
-            position: relative;
-            height: 240px;
-            overflow: hidden;
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .project-card:hover .project-image img {
-            transform: scale(1.05);
-        }
-
-        .project-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: var(--color-secondary);
-            color: white;
-            padding: 0.375rem 0.875rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .project-favorite {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 40px;
-            height: 40px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-gray);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .project-favorite:hover {
-            color: #e74c3c;
-            transform: scale(1.1);
-        }
-
-        .project-content {
-            padding: 1.5rem;
-        }
-
-        .project-location {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--color-gray);
-            font-size: 0.875rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .project-title {
-            font-size: 1.25rem;
-            color: var(--color-primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .project-features {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-feature {
-            display: flex;
-            align-items: center;
-            gap: 0.375rem;
-            font-size: 0.875rem;
-            color: var(--color-gray);
-        }
-
-        .project-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .project-price {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        .project-price span {
-            font-size: 0.875rem;
-            color: var(--color-gray);
-            font-weight: 400;
-        }
-
-        /* Why Us Section */
-        .why-section {
-            padding: 6rem 0;
-            background: var(--color-primary);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .why-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 50%;
-        }
-
-        .why-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .why-content .section-label {
-            color: var(--color-secondary-light);
-        }
-
-        .why-content .section-title {
-            color: white;
+            font-size: 3rem;
             margin-bottom: 1.5rem;
         }
 
-        .why-content .section-description {
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 2rem;
+        /* Geoportal */
+        .gp-container {
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-dark);
         }
 
-        .why-features {
+        .gp-top {
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #map {
+            height: 550px;
+            width: 100%;
+            filter: saturate(0.8) brightness(0.9);
+        }
+
+        .gp-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gp-item {
+            padding: 2rem;
+            text-align: center;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .gp-icon {
+            font-size: 1.5rem;
+            color: var(--color-primary-light);
+            margin-bottom: 1rem;
+        }
+
+        /* Projects */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .card {
+            background: var(--color-bg-card);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--color-primary-light);
+        }
+
+        .card-img {
+            height: 250px;
+            position: relative;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--color-primary);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .card-price {
+            font-size: 1.8rem;
+            color: var(--color-white);
+            margin-top: 1.5rem;
+            display: block;
+        }
+
+        /* Why Us */
+        .why-flex {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .feature-list {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .f-item {
+            display: flex;
             gap: 1.5rem;
         }
 
-        .why-feature {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .why-feature-icon {
-            width: 56px;
-            height: 56px;
-            background: rgba(255,255,255,0.1);
-            border-radius: var(--radius-md);
+        .f-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
+            color: var(--color-primary-light);
             flex-shrink: 0;
         }
 
-        .why-feature-content h4 {
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .why-feature-content p {
-            color: rgba(255,255,255,0.8);
-            font-size: 0.95rem;
-        }
-
-        .why-image {
-            position: relative;
-        }
-
-        .why-image img {
-            border-radius: var(--radius-xl);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .why-stats-card {
-            position: absolute;
-            bottom: -2rem;
-            left: -2rem;
-            background: white;
-            color: var(--color-dark);
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .why-stats-card-number {
-            font-family: var(--font-serif);
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--color-primary);
-        }
-
-        .why-stats-card-text {
-            font-size: 0.95rem;
-            color: var(--color-gray);
-        }
-
-        /* Process Section */
-        .process-section {
-            padding: 6rem 0;
-            background: var(--color-light);
-        }
-
-        .process-steps {
+        /* Steps */
+        .step-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
-            margin-top: 4rem;
         }
 
-        .process-step {
+        .step-card {
             text-align: center;
-            position: relative;
         }
 
-        .process-step:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            top: 2rem;
-            right: -1rem;
-            width: 2rem;
-            height: 2px;
-            background: var(--color-secondary);
-        }
-
-        .process-step-number {
-            width: 64px;
-            height: 64px;
+        .step-num {
+            width: 70px;
+            height: 70px;
             background: var(--color-primary);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.8rem;
             font-family: var(--font-serif);
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0 auto 1.5rem;
-            position: relative;
-        }
-
-        .process-step-title {
-            font-size: 1.25rem;
-            color: var(--color-primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .process-step-description {
-            color: var(--color-gray);
-            font-size: 0.95rem;
+            margin: 0 auto 2rem;
         }
 
         /* Testimonials */
-        .testimonials-section {
-            padding: 6rem 0;
-        }
-
-        .testimonials-grid {
+        .testi-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
-            margin-top: 4rem;
         }
 
-        .testimonial-card {
-            background: white;
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
+        .testi-card {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 2.5rem;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            font-family: var(--font-serif);
-            font-size: 4rem;
-            color: var(--color-accent);
-            line-height: 1;
-        }
-
-        .testimonial-stars {
+        .testi-stars {
             color: #fbbf24;
             margin-bottom: 1rem;
         }
 
-        .testimonial-text {
-            color: var(--color-gray);
-            margin-bottom: 1.5rem;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .testimonial-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .testimonial-info h4 {
-            font-size: 1rem;
-            color: var(--color-primary);
-        }
-
-        .testimonial-info p {
-            font-size: 0.875rem;
-            color: var(--color-gray);
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><path d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/></g></g></svg>');
-            opacity: 0.5;
-        }
-
-        .cta-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-title {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1rem;
-        }
-
-        .cta-description {
-            font-size: 1.25rem;
-            opacity: 0.95;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
         /* Footer */
         .footer {
-            background: var(--color-dark);
-            color: white;
-            padding: 4rem 0 2rem;
+            padding: 6rem 0 3rem;
+            background: #050805;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .footer-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
+            gap: 4rem;
         }
 
-        .footer-brand {
-            max-width: 300px;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--color-primary);
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .footer-logo-text {
-            font-family: var(--font-serif);
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
-        .footer-description {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .footer-social a {
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .footer-social a:hover {
-            background: var(--color-secondary);
-            transform: translateY(-3px);
-        }
-
-        .footer-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: var(--color-secondary-light);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.95rem;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            color: rgba(255,255,255,0.7);
-            font-size: 0.95rem;
-        }
-
-        .footer-contact-item i {
-            color: var(--color-secondary);
-            margin-top: 0.25rem;
-        }
-
-        .footer-bottom {
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.875rem;
-        }
-
-        /* Responsive */
+        /* Responsive Updates */
         @media (max-width: 1024px) {
-            .projects-grid,
-            .testimonials-grid {
+
+            .project-grid,
+            .testi-grid,
+            .step-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .process-steps {
-                grid-template-columns: repeat(2, 1fr);
+            .why-flex {
+                grid-template-columns: 1fr;
+                gap: 3rem;
             }
 
-            .process-step:not(:last-child)::after {
-                display: none;
-            }
-
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .hero-title {
+                font-size: 3.5rem;
             }
         }
 
         @media (max-width: 768px) {
-            .nav-links,
+            .navbar-content {
+                height: 70px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--color-bg);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 3rem;
+                transition: 0.4s;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
             .nav-cta .btn-outline {
                 display: none;
             }
 
             .mobile-menu-btn {
                 display: block;
+                font-size: 1.5rem;
+                color: white;
+                background: none;
+            }
+
+            .hero {
+                text-align: center;
+                height: auto;
+                padding: 120px 0 60px;
+            }
+
+            .hero-badge {
+                margin: 0 auto 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                margin: 0 auto 2.5rem;
             }
 
             .hero-stats {
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 2rem;
+                align-items: center;
             }
 
-            .geoportal-features {
+            .gp-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .projects-grid,
-            .testimonials-grid,
-            .process-steps {
-                grid-template-columns: 1fr;
+            .gp-item {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             }
 
-            .why-grid {
-                grid-template-columns: 1fr;
+            .gp-item:nth-child(even) {
+                border-right: none;
             }
 
-            .why-stats-card {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                margin-top: 2rem;
+            .section-title {
+                font-size: 2rem;
             }
 
+            .project-grid,
+            .testi-grid,
+            .step-grid,
             .footer-grid {
                 grid-template-columns: 1fr;
             }
 
-            .footer-bottom {
+            .why-flex {
+                text-align: center;
+            }
+
+            .f-item {
                 flex-direction: column;
-                gap: 1rem;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-grid {
                 text-align: center;
             }
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .mobile-menu-btn {
+            display: none;
         }
     </style>
 </head>
+
 <body>
-    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container navbar-content">
             <a href="#" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-mountain"></i>
-                </div>
-                <div class="logo-text">
-                    <span class="logo-brand">Tierras del Ñuble</span>
-                    <span class="logo-tagline">Parcelas de Agrado</span>
+                <div class="logo-icon"><i class="fas fa-mountain"></i></div>
+                <div>
+                    <div class="logo-brand">Tierras del Ñuble</div>
+                    <div class="logo-tagline">Parcelas de Agrado</div>
                 </div>
             </a>
-
-            <ul class="nav-links">
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#proyectos">Proyectos</a></li>
                 <li><a href="#geoportal">Geoportal</a></li>
-                <li><a href="#por-que-nosotros">¿Por qué nosotros?</a></li>
+                <li><a href="#por-que">¿Por qué nosotros?</a></li>
                 <li><a href="#proceso">Proceso</a></li>
-                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
             </ul>
-
             <div class="nav-cta">
-                <a href="#contacto" class="btn btn-outline">Contactar</a>
-                <a href="#geoportal" class="btn btn-primary">Ver Geoportal</a>
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <a href="#contacto" class="btn btn-outline">Contacto</a>
+                <button class="mobile-menu-btn" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-bg">
-            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=80" alt="Paisaje rural de Ñuble">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=80" alt="">
         </div>
         <div class="hero-overlay"></div>
-        
         <div class="container hero-content">
             <div class="hero-badge">
-                <i class="fas fa-map-marked-alt"></i>
-                <span>Primera inmobiliaria con Geoportal Interactivo en Ñuble</span>
+                <i class="fas fa-satellite"></i>
+                <span>Tecnología Geoespacial Aplicada al Corazón de Ñuble</span>
             </div>
-            
-            <h1 class="hero-title">
-                Tu parcela de agrado en Ñuble, <span>visualizada antes de comprar</span>
-            </h1>
-            
-            <p class="hero-description">
-                Proyectos rurales verificados con tecnología geoespacial. Explora servicios, 
-                plusvalía proyectada y potencial productivo desde tu computador o celular.
-            </p>
-            
-            <div class="hero-cta">
-                <a href="#geoportal" class="btn btn-secondary btn-large">
-                    <i class="fas fa-layer-group"></i>
-                    Explorar Geoportal
-                </a>
-                <a href="#proyectos" class="btn btn-outline btn-large" style="color: white; border-color: white;">
-                    <i class="fas fa-th-large"></i>
-                    Ver Proyectos
-                </a>
+            <h1 class="hero-title">Tu parcela en Ñuble, <span>completamente transparente</span></h1>
+            <p class="hero-description">Innovación territorial para familias que buscan seguridad. Visualiza servicios,
+                entorno y realidad jurídica antes de visitar el terreno.</p>
+            <div class="nav-cta">
+                <a href="#geoportal" class="btn btn-primary btn-large"
+                    style="padding:1.2rem 2.5rem; font-size:1rem;">Explorar Geoportal</a>
+                <a href="#proyectos" class="btn btn-outline btn-large"
+                    style="padding:1.2rem 2.5rem; font-size:1rem;">Ver Catálogo</a>
             </div>
-
             <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="hero-stat-number">12+</div>
-                    <div class="hero-stat-label">Proyectos activos</div>
+                <div class="stat">
+                    <span class="stat-num">12+</span>
+                    <span class="stat-label">Proyectos Activos</span>
                 </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-number">450+</div>
-                    <div class="hero-stat-label">Familias instaladas</div>
+                <div class="stat">
+                    <span class="stat-num">450+</span>
+                    <span class="stat-label">Familias</span>
                 </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-number">2.500</div>
-                    <div class="hero-stat-label">Hectáreas vendidas</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-number">8</div>
-                    <div class="hero-stat-label">Comunas de Ñuble</div>
+                <div class="stat">
+                    <span class="stat-num">8</span>
+                    <span class="stat-label">Comunas</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Geoportal Section -->
-    <section class="geoportal-section" id="geoportal">
+    <!-- Geoportal -->
+    <section class="section" id="geoportal">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">Tecnología</span>
-                <h2 class="section-title">Geoportal Interactivo: Tu parcela en detalle</h2>
-                <p class="section-description">
-                    La primera plataforma de visualización inmobiliaria de Ñuble. 
-                    Accede a información que otras inmobiliarias no te entregan.
-                </p>
+                <span class="label">Innovación</span>
+                <h2 class="section-title">Geoportal Interactivo</h2>
+                <p style="color:var(--color-text-muted)">Accede a información técnica real: factibilidad eléctrica,
+                    recursos hídricos y topografía digital.</p>
             </div>
-
-            <div class="geoportal-container">
-                <div class="geoportal-header">
-                    <div class="geoportal-title">
-                        <i class="fas fa-map"></i>
-                        <span>Geoportal Tierras del Ñuble - Proyecto Valle del Itata</span>
-                    </div>
-                    <div class="geoportal-controls">
-                        <div class="geoportal-control">
-                            <i class="fas fa-layer-group"></i>
-                            <span>Capas</span>
-                        </div>
-                        <div class="geoportal-control">
-                            <i class="fas fa-ruler-combined"></i>
-                            <span>Medir</span>
-                        </div>
-                        <div class="geoportal-control">
-                            <i class="fas fa-location-arrow"></i>
-                            <span>Ubicarme</span>
-                        </div>
-                    </div>
+            <div class="gp-container">
+                <div class="gp-top">
+                    <div style="font-weight:700;"><i class="fas fa-map-marked-alt"
+                            style="margin-right:10px; color:var(--color-primary-light)"></i> Ñuble_Data_Viz_2024</div>
+                    <div style="font-size:0.8rem; color:var(--color-text-muted)">Sincronizado vía Satélite</div>
                 </div>
-                
                 <div id="map"></div>
-                
-                <div class="geoportal-features">
-                    <div class="geoportal-feature">
-                        <div class="geoportal-feature-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <div class="geoportal-feature-title">Servicios verificados</div>
-                        <div class="geoportal-feature-desc">Luz, agua y conectividad</div>
+                <div class="gp-grid">
+                    <div class="gp-item">
+                        <i class="fas fa-bolt gp-icon"></i>
+                        <h4>Servicios</h4>
+                        <p style="font-size:0.8rem; color:var(--color-text-muted)">Red eléctrica proyectada</p>
                     </div>
-                    <div class="geoportal-feature">
-                        <div class="geoportal-feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="geoportal-feature-title">Plusvalía proyectada</div>
-                        <div class="geoportal-feature-desc">Estimación 5-10 años</div>
+                    <div class="gp-item">
+                        <i class="fas fa-tint gp-icon"></i>
+                        <h4>Agua</h4>
+                        <p style="font-size:0.8rem; color:var(--color-text-muted)">Factibilidad APR</p>
                     </div>
-                    <div class="geoportal-feature">
-                        <div class="geoportal-feature-icon">
-                            <i class="fas fa-seedling"></i>
-                        </div>
-                        <div class="geoportal-feature-title">Potencial productivo</div>
-                        <div class="geoportal-feature-desc">Análisis de suelo y clima</div>
+                    <div class="gp-item">
+                        <i class="fas fa-chart-area gp-icon"></i>
+                        <h4>Plusvalía</h4>
+                        <p style="font-size:0.8rem; color:var(--color-text-muted)">Análisis de entorno</p>
                     </div>
-                    <div class="geoportal-feature">
-                        <div class="geoportal-feature-icon">
-                            <i class="fas fa-gavel"></i>
-                        </div>
-                        <div class="geoportal-feature-title">Normativa vigente</div>
-                        <div class="geoportal-feature-desc">PRMU y restricciones</div>
+                    <div class="gp-item">
+                        <i class="fas fa-shield-alt gp-icon" style="border-right:none"></i>
+                        <h4>Legal</h4>
+                        <p style="font-size:0.8rem; color:var(--color-text-muted)">Rol Propio Verificado</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section class="projects-section" id="proyectos">
+    <!-- Projects -->
+    <section class="section section-alt" id="proyectos">
         <div class="container">
-            <div class="projects-header">
+            <div class="section-header">
+                <span class="label">Disponibilidad</span>
+                <h2 class="section-title">Parcelas en Venta</h2>
+            </div>
+            <div class="project-grid">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1500076656116-558758c991c1?w=800&q=80" alt="">
+                        <div class="card-badge">ÚLTIMAS UNIDADES</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 style="margin-bottom:0.5rem">Valle del Itata</h3>
+                        <p style="font-size:0.9rem; color:var(--color-text-muted)">San Nicolás. Microclima ideal para
+                            viñedos.</p>
+                        <span class="card-price">$39.900.000 <small
+                                style="font-size:0.9rem; color:var(--color-text-muted)">CLP</small></span>
+                        <button class="btn btn-primary" style="width:100%; margin-top:2rem;">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80" alt="">
+                        <div class="card-badge" style="background:var(--color-secondary)">PROYECTO NUEVO</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 style="margin-bottom:0.5rem">Lomas de Chillán</h3>
+                        <p style="font-size:0.9rem; color:var(--color-text-muted)">Chillán Viejo. Conectividad urbana y
+                            paz rural.</p>
+                        <span class="card-price">$28.500.000 <small
+                                style="font-size:0.9rem; color:var(--color-text-muted)">CLP</small></span>
+                        <button class="btn btn-primary" style="width:100%; margin-top:2rem;">Ver Detalles</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1464146072230-91cabc968266?w=800&q=80" alt="">
+                        <div class="card-badge">ENTREGA INMEDIATA</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 style="margin-bottom:0.5rem">Mirador del Cordón</h3>
+                        <p style="font-size:0.9rem; color:var(--color-text-muted)">San Fabián. Entorno montañoso y
+                            bosque nativo.</p>
+                        <span class="card-price">$45.000.000 <small
+                                style="font-size:0.9rem; color:var(--color-text-muted)">CLP</small></span>
+                        <button class="btn btn-primary" style="width:100%; margin-top:2rem;">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us -->
+    <section class="section" id="por-que">
+        <div class="container">
+            <div class="why-flex">
                 <div>
-                    <span class="section-label">Proyectos</span>
-                    <h2 class="section-title">Parcelas de agrado disponibles</h2>
-                </div>
-                <a href="#" class="btn btn-outline">Ver todos los proyectos</a>
-            </div>
-
-            <div class="projects-grid">
-                <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1500076656116-558758c991c1?w=800&q=80" alt="Valle del Itata">
-                        <span class="project-badge">Últimas unidades</span>
-                        <button class="project-favorite">
-                            <i class="far fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>San Nicolás, Ñuble</span>
-                        </div>
-                        <h3 class="project-title">Valle del Itata</h3>
-                        <div class="project-features">
-                            <span class="project-feature">
-                                <i class="fas fa-expand"></i> 5.000 m²
-                            </span>
-                            <span class="project-feature">
-                                <i class="fas fa-road"></i> Acceso pavimentado
-                            </span>
-                            <span class="project-feature">
-                                <i class="fas fa-tint"></i> APR
-                            </span>
-                        </div>
-                        <div class="project-footer">
-                            <div class="project-price">
-                                $39.900.000 <span>CLP</span>
+                    <span class="label">Diferencia</span>
+                    <h2 class="section-title">Certidumbre Territorial</h2>
+                    <p style="color:var(--color-text-muted); font-size:1.1rem;">No solo vendemos tierra; entregamos un
+                        ecosistema de información para que tu inversión sea 100% segura.</p>
+                    <div class="feature-list">
+                        <div class="f-item">
+                            <div class="f-icon"><i class="fas fa-microscope"></i></div>
+                            <div>
+                                <h4 style="margin-bottom:0.5rem;">Estudios de Precisión</h4>
+                                <p style="font-size:0.9rem; color:var(--color-text-muted);">Análisis de suelos y calidad
+                                    de agua certificados por laboratorios locales.</p>
                             </div>
-                            <button class="btn btn-primary" style="padding: 0.625rem 1.25rem;">
-                                Ver detalle
-                            </button>
+                        </div>
+                        <div class="f-item">
+                            <div class="f-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                            <div>
+                                <h4 style="margin-bottom:0.5rem;">Cero Burocracia</h4>
+                                <p style="font-size:0.9rem; color:var(--color-text-muted);">Gestión completa de
+                                    escrituración y roles ante el CBR y el SII.</p>
+                            </div>
+                        </div>
+                        <div class="f-item">
+                            <div class="f-icon"><i class="fas fa-headset"></i></div>
+                            <div>
+                                <h4 style="margin-bottom:0.5rem;">Acompañamiento 360</h4>
+                                <p style="font-size:0.9rem; color:var(--color-text-muted);">Asesoría en construcción
+                                    rural y eficiencia energética post-venta.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=80" alt="Lomas de Chillán">
-                        <span class="project-badge" style="background: var(--color-primary);">Nuevo</span>
-                        <button class="project-favorite">
-                            <i class="far fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Chillán Viejo, Ñuble</span>
-                        </div>
-                        <h3 class="project-title">Lomas de Chillán</h3>
-                        <div class="project-features">
-                            <span class="project-feature">
-                                <i class="fas fa-expand"></i> 3.500 m²
-                            </span>
-                            <span class="project-feature">
-                                <i class="fas fa-road"></i> Camino mantenido
-                            </span>
-                            <span class="project-feature">
-                                <i class="fas fa-wifi"></i> Fibra óptica
-                            </span>
-                        </div>
-                        <div class="project-footer">
-                            <div class="project-price">
-                                $28.500.000 <span>CLP</span>
-                            </div>
-                            <button class="btn btn-primary" style="padding: 0.625rem 1.25rem;">
-                                Ver detalle
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1464146072230-91cabc968266?w=800&q=80" alt="Mirador del Cordón">
-                        <button class="project-favorite">
-                            <i class="far fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="project-content">
-                        <div class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>San Fabián, Ñuble</span>
-                        </div>
-                        <h3 class="project-title">Mirador del Cordón</h3>
-                        <div class="project-features">
-                            <span class="project-feature">
-                                <i class="fas fa-expand"></i> 10.000 m²
-                            </span>
-                            <span class="project-feature">
-                                <i class="fas fa-mountain"></i> Vista cordillera
-                            </span>
-                            <span class="project-feature">
-                                <i class="fas fa-tree"></i> Nativo
-                            </span>
-                        </div>
-                        <div class="project-footer">
-                            <div class="project-price">
-                                $45.000.000 <span>CLP</span>
-                            </div>
-                            <button class="btn btn-primary" style="padding: 0.625rem 1.25rem;">
-                                Ver detalle
-                            </button>
-                        </div>
+                <div style="position:relative;">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80" alt=""
+                        style="width:100%; border-radius:20px; filter:grayscale(0.3) brightness(0.8)">
+                    <div
+                        style="position:absolute; bottom:-30px; right:30px; background:var(--color-primary); padding:2rem; border-radius:15px; box-shadow:var(--shadow-dark)">
+                        <span style="font-size:3rem; font-family:var(--font-serif); font-weight:700;">98%</span>
+                        <p style="font-size:0.8rem; font-weight:700;">DE CLIENTES NOS RECOMIENDAN</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Us Section -->
-    <section class="why-section" id="por-que-nosotros">
-        <div class="container">
-            <div class="why-grid">
-                <div class="why-content">
-                    <span class="section-label">Diferencia</span>
-                    <h2 class="section-title">¿Por qué comprar con nosotros?</h2>
-                    <p class="section-description">
-                        Somos la única inmobiliaria de Ñuble que combina desarrollo de proyectos 
-                        rurales con tecnología geoespacial de precisión. No vendemos parcelas, 
-                        vendemos certeza territorial.
-                    </p>
-
-                    <div class="why-features">
-                        <div class="why-feature">
-                            <div class="why-feature-icon">
-                                <i class="fas fa-map-marked-alt"></i>
-                            </div>
-                            <div class="why-feature-content">
-                                <h4>Geoportal exclusivo</h4>
-                                <p>Visualiza tu parcela con servicios, normativa y potencial productivo antes de visitar.</p>
-                            </div>
-                        </div>
-                        <div class="why-feature">
-                            <div class="why-feature-icon">
-                                <i class="fas fa-file-contract"></i>
-                            </div>
-                            <div class="why-feature-content">
-                                <h4>Documentación transparente</h4>
-                                <p>Todos nuestros proyectos cuentan con estudios de suelo, factibilidad de servicios y normativa vigente.</p>
-                            </div>
-                        </div>
-                        <div class="why-feature">
-                            <div class="why-feature-icon">
-                                <i class="fas fa-hands-helping"></i>
-                            </div>
-                            <div class="why-feature-content">
-                                <h4>Acompañamiento post-venta</h4>
-                                <p>Te ayudamos con conexión de servicios, permisos de edificación y asesoría productiva.</p>
-                            </div>
-                        </div>
-                        <div class="why-feature">
-                            <div class="why-feature-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <div class="why-feature-content">
-                                <h4>Garantía de plusvalía</h4>
-                                <p>Proyectos en zonas con crecimiento demográfico y desarrollo de infraestructura verificados.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="why-image">
-                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80" alt="Familia en parcela">
-                    <div class="why-stats-card">
-                        <div class="why-stats-card-number">98%</div>
-                        <div class="why-stats-card-text">de clientes recomiendan<br>Tierras del Ñuble</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Section -->
-    <section class="process-section" id="proceso">
+    <!-- Steps -->
+    <section class="section section-alt" id="proceso">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">Proceso</span>
-                <h2 class="section-title">De la visualización a tu parcela en 4 pasos</h2>
-                <p class="section-description">
-                    Hemos simplificado el proceso de compra de parcelas de agrado 
-                    combinando tecnología digital con asesoría humana.
-                </p>
+                <span class="label">Camino</span>
+                <h2 class="section-title">Tu Parcela en 4 Pasos</h2>
             </div>
-
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="process-step-number">1</div>
-                    <h3 class="process-step-title">Explora en el Geoportal</h3>
-                    <p class="process-step-description">
-                        Navega proyectos, compara parcelas, visualiza servicios y solicita información específica online.
-                    </p>
+            <div class="step-grid">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3 style="margin-bottom:1rem">Explora</h3>
+                    <p style="font-size:0.9rem; color:var(--color-text-muted)">Usa el geoportal para filtrar por tus
+                        necesidades reales.</p>
                 </div>
-                <div class="process-step">
-                    <div class="process-step-number">2</div>
-                    <h3 class="process-step-title">Visita con asesor</h3>
-                    <p class="process-step-description">
-                        Agendamos visita guiada al proyecto. Recorres la parcela real con GPS y verificas todo lo visto online.
-                    </p>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3 style="margin-bottom:1rem">Visita</h3>
+                    <p style="font-size:0.9rem; color:var(--color-text-muted)">Agenda un recorrido guiado con expertos
+                        en terreno.</p>
                 </div>
-                <div class="process-step">
-                    <div class="process-step-number">3</div>
-                    <h3 class="process-step-title">Reserva y documentación</h3>
-                    <p class="process-step-description">
-                        Reserva con 10% del valor. Nuestro equipo gestiona estudios de título, firmas y permisos necesarios.
-                    </p>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3 style="margin-bottom:1rem">Reserva</h3>
+                    <p style="font-size:0.9rem; color:var(--color-text-muted)">Proceso legal transparente y
+                        documentación digital.</p>
                 </div>
-                <div class="process-step">
-                    <div class="process-step-number">4</div>
-                    <h3 class="process-step-title">Escritura y post-venta</h3>
-                    <p class="process-step-description">
-                        Firma escritura pública. Te acompañamos en conexión de servicios y asesoría para desarrollar tu proyecto.
-                    </p>
+                <div class="step-card">
+                    <div class="step-num">4</div>
+                    <h3 style="margin-bottom:1rem">Disfruta</h3>
+                    <p style="font-size:0.9rem; color:var(--color-text-muted)">Te acompañamos en tu nueva vida rural en
+                        Ñuble.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials-section" id="testimonios">
+    <!-- Testimonials -->
+    <section class="section" id="testimonios">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">Testimonios</span>
-                <h2 class="section-title">Lo que dicen nuestros clientes</h2>
-                <p class="section-description">
-                    Familias que encontraron su lugar en el campo de Ñuble.
-                </p>
+                <span class="label">Confianza</span>
+                <h2 class="section-title">Clientes Satisfechos</h2>
             </div>
-
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "El geoportal fue clave. Pudimos ver que la parcela tenía acceso directo a la ruta y la red de agua potable antes de ir a terreno. Eso no lo tiene ninguna otra inmobiliaria."
-                    </p>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos" class="testimonial-avatar">
-                        <div class="testimonial-info">
-                            <h4>Carlos Muñoz</h4>
-                            <p>Valle del Itata, San Nicolás</p>
+            <div class="testi-grid">
+                <div class="testi-card">
+                    <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p style="font-style:italic; margin-bottom:2rem;">"El geoportal nos permitió decidirnos sin viajar
+                        600km. La precisión de los datos nos dio la confianza que faltaba."</p>
+                    <div style="display:flex; align-items:center; gap:1rem;">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" style="width:50px; border-radius:50%;"
+                            alt="">
+                        <div>
+                            <h4 style="font-size:1rem;">Carlos Muñoz</h4>
+                            <p style="font-size:0.8rem; color:var(--color-text-muted)">Proyecto Valle del Itata</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "Vivimos en Santiago y compramos sin visitar primero gracias al geoportal. La información era tan detallada que nos sentimos seguros. Luego fuimos a firmar y todo coincidió."
-                    </p>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="María" class="testimonial-avatar">
-                        <div class="testimonial-info">
-                            <h4>María José Riquelme</h4>
-                            <p>Lomas de Chillán, Chillán Viejo</p>
+                <div class="testi-card">
+                    <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p style="font-style:italic; margin-bottom:2rem;">"La transparencia en los roles y certificados de
+                        agua fue lo más importante para nosotros. Un servicio de primer nivel."</p>
+                    <div style="display:flex; align-items:center; gap:1rem;">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                            style="width:50px; border-radius:50%;" alt="">
+                        <div>
+                            <h4 style="font-size:1rem;">María Riquelme</h4>
+                            <p style="font-size:0.8rem; color:var(--color-text-muted)">Lomas de Chillán</p>
                         </div>
                     </div>
                 </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <p class="testimonial-text">
-                        "Nos ayudaron con todo el proceso de conexión a la APR de la zona. Ahora tenemos agua potable rural funcionando perfecto. Un servicio que no esperábamos y valoramos mucho."
-                    </p>
-                    <div class="testimonial-author">
-                        <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Pedro" class="testimonial-avatar">
-                        <div class="testimonial-info">
-                            <h4>Pedro y Ana González</h4>
-                            <p>Mirador del Cordón, San Fabián</p>
+                <div class="testi-card">
+                    <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p style="font-style:italic; margin-bottom:2rem;">"Encontramos el lugar soñado frente a la
+                        cordillera. El equipo de Tierras del Ñuble nos guió en cada paso."</p>
+                    <div style="display:flex; align-items:center; gap:1rem;">
+                        <img src="https://randomuser.me/api/portraits/men/67.jpg" style="width:50px; border-radius:50%;"
+                            alt="">
+                        <div>
+                            <h4 style="font-size:1rem;">Pedro González</h4>
+                            <p style="font-size:0.8rem; color:var(--color-text-muted)">Mirador del Cordón</p>
                         </div>
                     </div>
                 </div>
@@ -1539,204 +926,119 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section" id="contacto">
-        <div class="container cta-content">
-            <h2 class="cta-title">Encuentra tu parcela ideal hoy</h2>
-            <p class="cta-description">
-                Explora nuestro geoportal interactivo o agenda una visita guiada 
-                con nuestros asesores especializados en desarrollo rural.
-            </p>
-            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="#geoportal" class="btn btn-secondary btn-large">
-                    <i class="fas fa-layer-group"></i>
-                    Explorar Geoportal
-                </a>
-                <a href="https://wa.me/569XXXXXXXX" class="btn btn-outline btn-large" style="color: white; border-color: white;">
-                    <i class="fab fa-whatsapp"></i>
-                    Hablar por WhatsApp
-                </a>
+    <!-- CTA -->
+    <section class="section"
+        style="background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=80'); background-size:cover; background-attachment:fixed; text-align:center;">
+        <div class="container">
+            <h2 class="section-title">¿Listo para tu nueva vida?</h2>
+            <p style="max-width:600px; margin: 0 auto 3rem; color:var(--color-text-muted)">Agenda una reunión virtual o
+                presencial para conocer todos los detalles de inversión.</p>
+            <div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap;">
+                <button class="btn btn-primary" style="padding:1.2rem 3rem;">HABLAR CON UN ASESOR</button>
+                <button class="btn btn-outline" style="padding:1.2rem 3rem;">CATÁLOGO PDF</button>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <div class="footer-logo-icon">
-                            <i class="fas fa-mountain"></i>
-                        </div>
-                        <span class="footer-logo-text">Tierras del Ñuble</span>
-                    </div>
-                    <p class="footer-description">
-                        Primera inmobiliaria de Ñuble con tecnología geoespacial. 
-                        Desarrollamos proyectos de parcelas de agrado con transparencia 
-                        y acompañamiento integral.
-                    </p>
-                    <div class="footer-social">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-
                 <div>
-                    <h4 class="footer-title">Proyectos</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Valle del Itata</a></li>
-                        <li><a href="#">Lomas de Chillán</a></li>
-                        <li><a href="#">Mirador del Cordón</a></li>
-                        <li><a href="#">Los Robles</a></li>
-                        <li><a href="#">Ver todos</a></li>
+                    <div class="logo-brand" style="margin-bottom:1rem;">Tierras del Ñuble</div>
+                    <p style="font-size:0.9rem; color:var(--color-text-muted)">Líderes en desarrollo rural inteligente
+                        en la Región del Ñuble. Certeza legal y tecnológica.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom:1.5rem">Legales</h4>
+                    <ul style="list-style:none; color:var(--color-text-muted); font-size:0.9rem;">
+                        <li style="margin-bottom:0.5rem">Términos y condiciones</li>
+                        <li style="margin-bottom:0.5rem">Política de privacidad</li>
+                        <li style="margin-bottom:0.5rem">Rol propio</li>
                     </ul>
                 </div>
-
                 <div>
-                    <h4 class="footer-title">Servicios</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Geoportal Interactivo</a></li>
-                        <li><a href="#">Asesoría Productiva</a></li>
-                        <li><a href="#">Gestión de Servicios</a></li>
-                        <li><a href="#">Permisos y Normativa</a></li>
-                        <li><a href="#">Post-venta</a></li>
+                    <h4 style="margin-bottom:1.5rem">Contacto</h4>
+                    <ul style="list-style:none; color:var(--color-text-muted); font-size:0.9rem;">
+                        <li style="margin-bottom:0.5rem">Chillán, Ñuble, Chile</li>
+                        <li style="margin-bottom:0.5rem">+56 9 1234 5678</li>
+                        <li style="margin-bottom:0.5rem">hola@tierrasdelnuble.cl</li>
                     </ul>
                 </div>
-
                 <div>
-                    <h4 class="footer-title">Contacto</h4>
-                    <div class="footer-contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Av. Libertad 1234, Chillán, Ñuble</span>
-                    </div>
-                    <div class="footer-contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+56 9 XXXX XXXX</span>
-                    </div>
-                    <div class="footer-contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>contacto@tierrasdelnuble.cl</span>
-                    </div>
-                    <div class="footer-contact-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Lun-Vie: 9:00 - 18:00 hrs</span>
+                    <h4 style="margin-bottom:1.5rem">Redes</h4>
+                    <div style="display:flex; gap:1rem; font-size:1.5rem">
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-youtube"></i>
                     </div>
                 </div>
             </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 Tierras del Ñuble SpA. Todos los derechos reservados.</p>
-                <div style="display: flex; gap: 2rem;">
-                    <a href="#" style="color: inherit;">Política de privacidad</a>
-                    <a href="#" style="color: inherit;">Términos de uso</a>
-                </div>
+            <div style="margin-top:5rem; text-align:center; font-size:0.8rem; color:var(--color-text-muted)">
+                &copy; 2024 Tierras del Ñuble SpA. Todos los derechos reservados.
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
         });
 
         // Initialize Map
-        document.addEventListener('DOMContentLoaded', () => {
-            // Coordenadas de Ñuble (aproximadas)
-            const map = L.map('map').setView([-36.6, -72.1], 10);
+        const map = L.map('map').setView([-36.6, -72.1], 10);
 
-            // Capas base
-            const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-                attribution: 'Esri',
-                maxZoom: 18
-            });
+        // Dark Sat Layer
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Esri'
+        }).addTo(map);
 
-            const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: 'OpenStreetMap',
-                maxZoom: 19
-            });
+        // Styling the satellite layer for dark mode
+        document.getElementById('map').style.backgroundColor = '#0a0f0b';
 
-            satellite.addTo(map);
+        // Add Example Markers
+        const projects = [
+            { name: "Valle del Itata", coords: [-36.5, -72.4], price: "$39.9M" },
+            { name: "Lomas de Chillán", coords: [-36.65, -71.95], price: "$28.5M" },
+            { name: "Mirador del Cordón", coords: [-36.8, -72.2], price: "$45M" }
+        ];
 
-            // Control de capas
-            L.control.layers({
-                "Satélite": satellite,
-                "Mapa": osm
-            }).addTo(map);
-
-            // Marcadores de ejemplo (proyectos)
-            const proyectos = [
-                { lat: -36.5, lng: -72.0, nombre: "Valle del Itata", precio: "$39.9M" },
-                { lat: -36.65, lng: -72.1, nombre: "Lomas de Chillán", precio: "$28.5M" },
-                { lat: -36.55, lng: -71.55, nombre: "Mirador del Cordón", precio: "$45M" }
-            ];
-
-            proyectos.forEach(proy => {
-                const marker = L.marker([proy.lat, proy.lng]).addTo(map);
-                marker.bindPopup(`
-                    <div style="font-family: Inter, sans-serif; min-width: 200px;">
-                        <h4 style="margin: 0 0 8px 0; color: #1a4d2e; font-family: Playfair Display, serif;">${proy.nombre}</h4>
-                        <p style="margin: 0 0 8px 0; color: #666; font-size: 0.9rem;">Parcelas desde ${proy.precio}</p>
-                        <button style="background: #bc6c25; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;">Ver detalle</button>
-                    </div>
-                `);
-            });
-
-            // Ajustar tamaño cuando la sección es visible
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            map.invalidateSize();
-                        }, 100);
-                    }
-                });
-            });
-
-            observer.observe(document.getElementById('map'));
+        const customIcon = L.divIcon({
+            className: 'custom-div-icon',
+            html: "<div style='background-color:#52b788; width:15px; height:15px; border-radius:50%; border:2px solid white; box-shadow:0 0 10px rgba(82,183,136,0.8);'></div>",
+            iconSize: [15, 15],
+            iconAnchor: [7, 7]
         });
 
-        // Smooth scroll para enlaces internos
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        projects.forEach(p => {
+            L.marker(p.coords, { icon: customIcon }).addTo(map)
+                .bindPopup(`<strong style="color:#52b788">${p.name}</strong><br>Precio: ${p.price}<br><a href="#" style="color:#bc6c25; font-weight:700">Ver Ficha Pública</a>`);
         });
 
-        // Animación on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.getElementById('nav-links');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
             });
-        }, observerOptions);
-
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
         });
     </script>
 </body>
+
 </html>
